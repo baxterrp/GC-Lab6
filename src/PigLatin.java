@@ -10,13 +10,24 @@ public class PigLatin {
 			return false;
 	}
 
+	public static boolean hasVowel(String word) {
+		boolean hasVowel = false;
+
+		for (int i = 0; i < word.length(); i++) {
+			if (isVowel(word.charAt(i))) {
+				hasVowel = true;
+			}
+		}
+		return hasVowel;
+	}
+
 	public static String translate(String word) {
 
 		boolean isUpper = false;
-		
+
 		if (Character.isUpperCase(word.charAt(0)))
 			isUpper = true;
-	
+
 		// convert word to lower case
 		word = word.toLowerCase();
 
@@ -29,26 +40,31 @@ public class PigLatin {
 		} else {
 			int index = 0;
 			boolean done = false;
+			if (hasVowel(word)) {
 
-			do {
+				do {
 
-				if (isVowel(word.charAt(index))) {
-					// add all consonants to end of string
-					word += word.substring(0, index);
+					if (isVowel(word.charAt(index))) {
+						// add all consonants to end of string
+						word += word.substring(0, index);
 
-					// chop all consonants up to the first vowel
-					word = word.substring(index);
+						// chop all consonants up to the first vowel
+						word = word.substring(index);
 
-					// exit loop
-					done = true;
-				}
-				index++;
+						// exit loop
+						done = true;
+					}
+					index++;
 
-			} while (done == false);
+				} while (done == false);
 
+				// if word has no vowels, treat y as vowel
+			} else {
+				word += word.substring(0, word.indexOf('y'));
+				word = word.substring(word.indexOf('y'));
+			}
 			word += "ay";
 		}
-
 		// if first character was upper case, new first letter gets converted to
 		// upper case
 		if (isUpper) {
