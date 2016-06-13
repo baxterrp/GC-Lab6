@@ -97,10 +97,18 @@ public class PigLatin {
 
 	public static void main(String[] args) {
 
+		boolean quit = false;
+
 		Scanner scan = new Scanner(System.in);
-		System.out
-				.println("Welcome to the Pig Latin Translator!\nEnter a line to be translated");
-		System.out.println(createSentence(scan.nextLine()));
+		System.out.println("Welcome to the Pig Latin Translator!\n");
+		do {
+			System.out.println("Enter a line to be translated");
+			System.out.println(createSentence(scan.nextLine()));
+			System.out.println("Continue?(y/n)");
+			if (Character.toLowerCase(scan.nextLine().charAt(0)) != 'y') {
+				quit = true;
+			}
+		} while (quit == false);
 		scan.close();
 
 	}
